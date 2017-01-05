@@ -1,0 +1,28 @@
+{
+  "name": "ts-node-template",
+  "version": "0.0.1",
+  "description": "A light template for setting up a node.js typescript project with testing, coverage and auto documentation",
+  "main": "bin/index.js",
+  "scripts": {
+    "start": "ts-node lib/index.ts",
+    "build": "node node_modules/typescript/bin/tsc --p tsconfig.json",
+    "watch": "node node_modules/typescript/bin/tsc --w --p tsconfig.json",
+    "production": "npm run build && node bin/index.js",
+    "pretest": "npm run build",
+    "test": "node node_modules/mocha/bin/mocha",
+    "coverage": "istanbul cover _mocha -- -R spec",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "docs": "node node_modules/typedoc/bin/typedoc --exclude node_modules --ignoreCompilerErrors  --out docs/ lib/"
+  },
+  "test command": "mocha",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "coveralls": "^2.11.15",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "ts-node": "^2.0.0",
+    "typedoc": "^0.5.3",
+    "typescript": "^2.1.4"
+  }
+}
