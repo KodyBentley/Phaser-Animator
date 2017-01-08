@@ -59,18 +59,20 @@ List of animations:
 // import * as Phaser from './phaser';
 
 export default class Animations {
-
-    private _game:any;
-
-    constructor(game) {
-        game = game;
+    constructor() {
+    
     }
 
         /**
          * Gives a wobble effect left and right
          * @param {Object} obj Display Object or Array of Display Objects
          */
-    shakeX(game, obj:Object, data:Object = {duration: 200, distance: 15}, callback:Function = null) {
+    shakeX(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 200,
+            distance: 15
+        }
+        data = this.validate(deflt, data);
         // create a wobble animation
         let tween1 = game.add.tween(obj).to({
             x: obj['x'] - data['distance']
@@ -88,13 +90,23 @@ export default class Animations {
         tween1.chain(tween2);
         tween2.chain(tween3);
         tween1.start();
+        if(callback) {
+            tween3.onComplete.add(() => {
+                callback();
+            });
+        }
     }
 
         /**
          * Gives a wobble effect up and down
          * @param {Object} obj Display Object or Array of Display Objects
          */
-    shakeY(game, obj:Object, data:Object = {duration: 200, distance: 15}, callback:Function = null) {
+    shakeY(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 200,
+            distance: 15
+        }
+        data = this.validate(deflt, data);
         // create a wobble animation
         let tween1 = game.add.tween(obj).to({
             y: obj['y'] - data['distance']
@@ -123,7 +135,12 @@ export default class Animations {
      * Gives a wobble effect up and down
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    bounce(game, obj:Object, data:Object = {duration: 200, distance: 15}, callback:Function = null) {
+    bounce(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 200,
+            distance: 15
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             y: obj['y'] - data['distance']
         }, 0.25 * data['duration'], Phaser.Easing.Bounce.Out, false, 15);
@@ -147,7 +164,11 @@ export default class Animations {
      * Fades out
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    fadeOut(game, obj:Object, data:Object = {duration: 200}, callback:Function = null) {
+    fadeOut(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 200
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             alpha: 0
         }, data['duration'], Phaser.Easing.Linear.None, false, 15);
@@ -163,7 +184,11 @@ export default class Animations {
      * Fades in
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    fadeIn(game, obj:Object, data:Object = {duration: 200}, callback:Function = null) {
+    fadeIn(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 200
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             alpha: 1
         }, data['duration'], Phaser.Easing.Linear.None, false, 15);
@@ -179,8 +204,12 @@ export default class Animations {
      * Tweens alpha in a loop to give flashing effect
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    fadeFlash(game, obj:Object, data:Object = {duration: 200}, callback:Function = null) {
-         let tween1 = game.add.tween(obj).to({
+    fadeFlash(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000
+        }
+        data = this.validate(deflt, data);
+        let tween1 = game.add.tween(obj).to({
             alpha: 0
         }, 0.5 * data['duration'], Phaser.Easing.Linear.None).to({
             alpha: 1
@@ -197,7 +226,12 @@ export default class Animations {
      * Fades in from top
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    fadeInDown(game, obj:Object, data:Object = {duration: 200, distance: 30}, callback:Function = null) {
+    fadeInDown(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 200,
+            distance: 30
+        }
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] - data['distance'];
         let tween1 = game.add.tween(obj).to({
             y: obj['y'] + data['distance'],
@@ -215,7 +249,12 @@ export default class Animations {
      * Increases scale to desired amount then shrinks back to original scale 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    pop(game, obj:Object, data:Object = {duration: 100, distance: 0.25}, callback:Function = null) {
+    pop(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 100,
+            distance: 0.25
+        }
+        data = this.validate(deflt, data);
         // create a pop animation
         let tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] + data['distance'],
@@ -238,7 +277,12 @@ export default class Animations {
      * Increases scale to desired distance then shrinks out 
      * @param {Object} obj Display Object or Array of Display Objects
      */ 
-    popOut(game, obj:Object, data:Object = {duration: 100, distance: 0.25}, callback:Function = null) {
+    popOut(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 100,
+            distance: 0.25
+        }
+        data = this.validate(deflt, data);
         // create a pop animation
         let tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] + data['distance'],
@@ -262,8 +306,12 @@ export default class Animations {
      * Gives a wobble effect up and down
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    onOver(game, obj:Object, data:Object = {duration: 100, distance: 0.25}, callback:Function = null) {
-
+    onOver(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 100,
+            distance: 0.25
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] + data['distance'],
             y: obj['scale']['y'] + data['distance']
@@ -280,7 +328,12 @@ export default class Animations {
      * Gives a wobble effect up and down
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    onOut(game, obj:Object, data:Object = {duration: 100, distance: 0.25}, callback:Function = null) {
+    onOut(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 100,
+            distance: 0.25
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] - data['distance'],
             y: obj['scale']['y'] - data['distance']
@@ -298,7 +351,12 @@ export default class Animations {
      * Drops in and bounces from top 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    inFromTopBounce(game, obj:Object, data:Object = {duration: 200, distance: 30}, callback:Function = null) {
+    inFromTopBounce(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 200,
+            distance: 30
+        }
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] - data['distance'];
         let tween1 = game.add.tween(obj).to({
             y: obj['y'] + data['distance']
@@ -315,7 +373,12 @@ export default class Animations {
      * Drops in, fades, and bounces from top 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    inFromTopFadeBounce(game, obj:Object, data:Object = {duration: 3000, distance: 30}, callback:Function = null) {
+    inFromTopFadeBounce(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1500,
+            distance: 30
+        }
+        data = this.validate(deflt, data);
         obj['alpha'] = 0;
         obj['y'] = obj['y'] - data['distance'];
         let tween1 = game.add.tween(obj).to({
@@ -334,9 +397,13 @@ export default class Animations {
      * Rotates in 360 degrees 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    rotateIn(game, obj:Object, data:Object = {duration: 1000, distance: 300}, callback:Function = null) {
+    rotateIn(game, obj:Object, data:Object , callback:Function = null) {
+        let deflt = {
+            duration: 1000
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
-            rotation: 6.283
+            rotation: obj['rotation'] + 6.283
         }, data['duration'], Phaser.Easing.Exponential.InOut, false);
         tween1.onComplete.add(() => {
             callback();
@@ -348,10 +415,14 @@ export default class Animations {
      * Rotates  and fades in 360 degrees 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    rotateInFade(game, obj:Object, data:Object = {duration: 1000, distance: 300}, callback:Function = null) {
+    rotateInFade(game, obj:Object, data:Object, callback:Function = null) {let deflt = {
+            duration: 1000
+        }
+        data = this.validate(deflt, data);
+
         obj['alpha'] = 0;
         let tween1 = game.add.tween(obj).to({
-            rotation: 6.283,
+            rotation: obj['rotation'] + 6.283,
             alpha: 1
         }, data['duration'], Phaser.Easing.Exponential.InOut, false);
         tween1.onComplete.add(() => {
@@ -364,7 +435,11 @@ export default class Animations {
      * Rotates and fades out 180 degrees 
      * @param {Object} obj Display Object or Array of Display Objects
      */   
-    rotateOutFade1(game, obj:Object, data:Object = {duration: 1000, distance:100}, callback:Function = null) {
+    rotateOutFade1(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             rotation: 3.1415,
             alpha: 0
@@ -379,7 +454,11 @@ export default class Animations {
      * Rotates and fades out 360 degrees 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    rotateOutFade2(game, obj:Object, data:Object = {duration: 1000, distance: 300}, callback:Function = null) {
+    rotateOutFade2(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             rotation: 6.283,
             alpha: 0
@@ -394,7 +473,12 @@ export default class Animations {
      * Slides in from bottom 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    slideInFromBottom(game, obj:Object, data:Object = {duration: 1000, distance: 750}, callback:Function = null) {
+    slideInFromBottom(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000,
+            distance: 500
+        }
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] + data['distance'];
         let tween1 = game.add.tween(obj).to({
             y: obj['y'] - data['distance']
@@ -410,7 +494,12 @@ export default class Animations {
      * Slides in from top 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    slideInFromTop(game, obj:Object, data:Object = {duration: 1000, distance: 750}, callback:Function = null) {
+    slideInFromTop(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000,
+            distance: 500
+        }
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] - data['distance'];
         let tween1 = game.add.tween(obj).to({
             y: obj['y'] + data['distance']
@@ -425,7 +514,12 @@ export default class Animations {
      * Slides in from right 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    slideInFromRight(game, obj:Object, data:Object = {duration: 1000, distance: 750}, callback:Function = null) {
+    slideInFromRight(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000,
+            distance: 750
+        }
+        data = this.validate(deflt, data);
         obj['x'] = obj['x'] + data['distance'];
         let tween1 = game.add.tween(obj).to({
             x: obj['x'] - data['distance']
@@ -440,7 +534,12 @@ export default class Animations {
      * Slides in from left 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-     slideInFromLeft(game, obj:Object, data:Object = {duration: 1000, distance: 750}, callback:Function = null) {
+     slideInFromLeft(game, obj:Object, data:Object, callback:Function = null) {
+         let deflt = {
+            duration: 1000,
+            distance: 750
+        }
+        data = this.validate(deflt, data);
         obj['x'] = obj['x'] - data['distance'];
         let tween1 = game.add.tween(obj).to({
             x: obj['x'] + data['distance']
@@ -455,7 +554,12 @@ export default class Animations {
      * Slides out to  bottom 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    slideOutToBottom(game, obj:Object, data:Object = {duration: 1000, distance: 750}, callback:Function = null) {
+    slideOutToBottom(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000,
+            distance: 500
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             y: obj['y']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -471,7 +575,12 @@ export default class Animations {
      * Slides out to top 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    slideOutToTop(game, obj:Object, data:Object = {duration: 1000, distance: 750}, callback:Function = null) {
+    slideOutToTop(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000,
+            distance: 500
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             y: obj['y']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -487,7 +596,12 @@ export default class Animations {
      * Slides out to left 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    slideOutToLeft(game, obj:Object, data:Object = {duration: 1000, distnace: 750}, callback:Function = null) {
+    slideOutToLeft(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000,
+            distance: 750
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             x: obj['x']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -503,7 +617,12 @@ export default class Animations {
      * Slides out to right 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    slideOutToRight(game, obj:Object, data:Object = {duration: 1000, distance: 750}, callback:Function = null) {
+    slideOutToRight(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 1000,
+            distance: 750
+        }
+        data = this.validate(deflt, data);
         let tween1 = game.add.tween(obj).to({
             x: obj['x']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -519,7 +638,11 @@ export default class Animations {
      * Scales Y to 0  
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    scaleOutY(game, obj:Array<Object>, data:Object= {duration: 350, distance: 100}, callback:Function = null) {
+    scaleOutY(game, obj:Array<Object>, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 350
+        }
+        data = this.validate(deflt, data);
         if(this.isArray(obj)) {
             let tweens = [];
             
@@ -554,7 +677,11 @@ export default class Animations {
      * Scales Y from 0 to set scale 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    scaleInY(game, obj:Array<Object>, data:Object= {duration: 350, distance: 100}, callback:Function = null) {
+    scaleInY(game, obj:Array<Object>, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 350
+        }
+        data = this.validate(deflt, data);
         if(this.isArray(obj)) {
             let tweens = [];
             
@@ -589,7 +716,11 @@ export default class Animations {
      * Scales X  to 0  
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    scaleOutX(game, obj:Array<Object>, data:Object = {duration: 350, distance: 100}, callback:Function = null) {
+    scaleOutX(game, obj:Array<Object>, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 350
+        }
+        data = this.validate(deflt, data);
         if(this.isArray(obj)) {
             let tweens = [];
             
@@ -624,7 +755,11 @@ export default class Animations {
      * Scales X from  0 to set scale 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    scaleInX(game, obj:Array<Object>, data:Object = {duration: 350, distance: 100}, callback:Function = null) {
+    scaleInX(game, obj:Array<Object>, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 350
+        }
+        data = this.validate(deflt, data);
         if(this.isArray(obj)) {
             let tweens = [];
             
@@ -660,7 +795,11 @@ export default class Animations {
      * 
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    shrinkIt(game, obj:Array<Object>, data:Object = {duration: 350, distance: 100}, callback:Function = null) {
+    shrinkIt(game, obj:Array<Object>, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 350
+        }
+        data = this.validate(deflt, data);
         if(this.isArray(obj)) {
             let tweens = [];
             
@@ -695,7 +834,12 @@ export default class Animations {
      * Scales X to 0 then back to normal scale and changes the texture mid tween  
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    shrinkX(game, obj:Object, data:Object = {duration: 350, distance: 100, texture: 't2'}, callback:Function = null) {
+    shrinkX(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 350,
+            texture: 't2'
+        }
+        data = this.validate(deflt, data);
         // create tween 1 - shrink to nothing
         let tween1 = game.add.tween(obj['scale']).to({
             x: 0
@@ -718,7 +862,12 @@ export default class Animations {
      * Scales Y to 0 then back to normal scale and changes the texture mid tween  
      * @param {Object} obj Display Object or Array of Display Objects
      */
-    shrinkY(game, obj:Object, data:Object = {duration: 350, distance: 100, texture: 't2'}, callback:Function = null) {
+    shrinkY(game, obj:Object, data:Object, callback:Function = null) {
+        let deflt = {
+            duration: 350,
+            texture: 't2'
+        }
+        data = this.validate(deflt, data);
         // create tween 1 - shrink to nothing
 
         let tween1 = game.add.tween(obj['scale']).to({
@@ -813,5 +962,32 @@ export default class Animations {
         } else {
             return false;
         }
+    }
+
+    /**
+     * @description validates two objects for tweens
+     * 
+     * @param {Object} obj1 defalut object for animation
+     * @param {Object} obj2 passed object from the user
+     * 
+     * @returns {Object}
+     */
+    validate(obj1:Object, obj2:Object) {
+        let valid:Object = {};
+        if(obj2 === undefined || obj2 === null || obj2 === false) {
+            valid = obj1;
+        } else {
+            for (var property in obj1) {
+                if (obj1.hasOwnProperty(property)) {
+                    if(!obj2[property]) {
+                        valid[property] = obj1[property];
+                    } else {
+                        valid[property] = obj2[property];
+                    }
+                }
+            }
+        }
+        
+        return valid;
     }
 }

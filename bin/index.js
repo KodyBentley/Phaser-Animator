@@ -1,11 +1,14 @@
 "use strict";
 var Animations = (function () {
-    function Animations(game) {
-        game = game;
+    function Animations() {
     }
     Animations.prototype.shakeX = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200, distance: 15 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 200,
+            distance: 15
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             x: obj['x'] - data['distance']
         }, 0.1538 * data['duration'], Phaser.Easing.Sinusoidal.InOut).to({
@@ -22,10 +25,19 @@ var Animations = (function () {
         tween1.chain(tween2);
         tween2.chain(tween3);
         tween1.start();
+        if (callback) {
+            tween3.onComplete.add(function () {
+                callback();
+            });
+        }
     };
     Animations.prototype.shakeY = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200, distance: 15 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 200,
+            distance: 15
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             y: obj['y'] - data['distance']
         }, 0.1538 * data['duration'], Phaser.Easing.Sinusoidal.InOut).to({
@@ -49,8 +61,12 @@ var Animations = (function () {
         }
     };
     Animations.prototype.bounce = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200, distance: 15 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 200,
+            distance: 15
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             y: obj['y'] - data['distance']
         }, 0.25 * data['duration'], Phaser.Easing.Bounce.Out, false, 15);
@@ -70,8 +86,11 @@ var Animations = (function () {
         }
     };
     Animations.prototype.fadeOut = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 200
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             alpha: 0
         }, data['duration'], Phaser.Easing.Linear.None, false, 15);
@@ -83,8 +102,11 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.fadeIn = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 200
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             alpha: 1
         }, data['duration'], Phaser.Easing.Linear.None, false, 15);
@@ -96,8 +118,11 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.fadeFlash = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             alpha: 0
         }, 0.5 * data['duration'], Phaser.Easing.Linear.None).to({
@@ -111,8 +136,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.fadeInDown = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200, distance: 30 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 200,
+            distance: 30
+        };
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] - data['distance'];
         var tween1 = game.add.tween(obj).to({
             y: obj['y'] + data['distance'],
@@ -126,8 +155,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.pop = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 100, distance: 0.25 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 100,
+            distance: 0.25
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] + data['distance'],
             y: obj['scale']['y'] + data['distance']
@@ -145,8 +178,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.popOut = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 100, distance: 0.25 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 100,
+            distance: 0.25
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] + data['distance'],
             y: obj['scale']['y'] + data['distance']
@@ -164,8 +201,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.onOver = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 100, distance: 0.25 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 100,
+            distance: 0.25
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] + data['distance'],
             y: obj['scale']['y'] + data['distance']
@@ -178,8 +219,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.onOut = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 100, distance: 0.25 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 100,
+            distance: 0.25
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj['scale']).to({
             x: obj['scale']['x'] - data['distance'],
             y: obj['scale']['y'] - data['distance']
@@ -192,8 +237,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.inFromTopBounce = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 200, distance: 30 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 200,
+            distance: 30
+        };
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] - data['distance'];
         var tween1 = game.add.tween(obj).to({
             y: obj['y'] + data['distance']
@@ -206,8 +255,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.inFromTopFadeBounce = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 3000, distance: 30 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1500,
+            distance: 30
+        };
+        data = this.validate(deflt, data);
         obj['alpha'] = 0;
         obj['y'] = obj['y'] - data['distance'];
         var tween1 = game.add.tween(obj).to({
@@ -222,10 +275,13 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.rotateIn = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 300 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
-            rotation: 6.283
+            rotation: obj['rotation'] + 6.283
         }, data['duration'], Phaser.Easing.Exponential.InOut, false);
         tween1.onComplete.add(function () {
             callback();
@@ -233,11 +289,14 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.rotateInFade = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 300 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000
+        };
+        data = this.validate(deflt, data);
         obj['alpha'] = 0;
         var tween1 = game.add.tween(obj).to({
-            rotation: 6.283,
+            rotation: obj['rotation'] + 6.283,
             alpha: 1
         }, data['duration'], Phaser.Easing.Exponential.InOut, false);
         tween1.onComplete.add(function () {
@@ -246,8 +305,11 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.rotateOutFade1 = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 100 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             rotation: 3.1415,
             alpha: 0
@@ -258,8 +320,11 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.rotateOutFade2 = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 300 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             rotation: 6.283,
             alpha: 0
@@ -270,8 +335,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideInFromBottom = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 500
+        };
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] + data['distance'];
         var tween1 = game.add.tween(obj).to({
             y: obj['y'] - data['distance']
@@ -282,8 +351,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideInFromTop = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 500
+        };
+        data = this.validate(deflt, data);
         obj['y'] = obj['y'] - data['distance'];
         var tween1 = game.add.tween(obj).to({
             y: obj['y'] + data['distance']
@@ -294,8 +367,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideInFromRight = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 750
+        };
+        data = this.validate(deflt, data);
         obj['x'] = obj['x'] + data['distance'];
         var tween1 = game.add.tween(obj).to({
             x: obj['x'] - data['distance']
@@ -306,8 +383,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideInFromLeft = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 750
+        };
+        data = this.validate(deflt, data);
         obj['x'] = obj['x'] - data['distance'];
         var tween1 = game.add.tween(obj).to({
             x: obj['x'] + data['distance']
@@ -318,8 +399,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideOutToBottom = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 500
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             y: obj['y']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -331,8 +416,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideOutToTop = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 500
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             y: obj['y']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -344,8 +433,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideOutToLeft = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distnace: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 750
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             x: obj['x']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -357,8 +450,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.slideOutToRight = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 1000, distance: 750 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 1000,
+            distance: 750
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj).to({
             x: obj['x']
         }, 0.5 * data['duration'], Phaser.Easing.Exponential.InOut).to({
@@ -370,8 +467,11 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.scaleOutY = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 350, distance: 100 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 350
+        };
+        data = this.validate(deflt, data);
         if (this.isArray(obj)) {
             var tweens = [];
             for (var _i = 0, obj_1 = obj; _i < obj_1.length; _i++) {
@@ -401,8 +501,11 @@ var Animations = (function () {
         }
     };
     Animations.prototype.scaleInY = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 350, distance: 100 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 350
+        };
+        data = this.validate(deflt, data);
         if (this.isArray(obj)) {
             var tweens = [];
             for (var _i = 0, obj_2 = obj; _i < obj_2.length; _i++) {
@@ -432,8 +535,11 @@ var Animations = (function () {
         }
     };
     Animations.prototype.scaleOutX = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 350, distance: 100 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 350
+        };
+        data = this.validate(deflt, data);
         if (this.isArray(obj)) {
             var tweens = [];
             for (var _i = 0, obj_3 = obj; _i < obj_3.length; _i++) {
@@ -463,8 +569,11 @@ var Animations = (function () {
         }
     };
     Animations.prototype.scaleInX = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 350, distance: 100 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 350
+        };
+        data = this.validate(deflt, data);
         if (this.isArray(obj)) {
             var tweens = [];
             for (var _i = 0, obj_4 = obj; _i < obj_4.length; _i++) {
@@ -494,8 +603,11 @@ var Animations = (function () {
         }
     };
     Animations.prototype.shrinkIt = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 350, distance: 100 }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 350
+        };
+        data = this.validate(deflt, data);
         if (this.isArray(obj)) {
             var tweens = [];
             for (var _i = 0, obj_5 = obj; _i < obj_5.length; _i++) {
@@ -525,8 +637,12 @@ var Animations = (function () {
         }
     };
     Animations.prototype.shrinkX = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 350, distance: 100, texture: 't2' }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 350,
+            texture: 't2'
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj['scale']).to({
             x: 0
         }, data['duration'] * 0.5, Phaser.Easing.Bounce.In, false);
@@ -540,8 +656,12 @@ var Animations = (function () {
         tween1.start();
     };
     Animations.prototype.shrinkY = function (game, obj, data, callback) {
-        if (data === void 0) { data = { duration: 350, distance: 100, texture: 't2' }; }
         if (callback === void 0) { callback = null; }
+        var deflt = {
+            duration: 350,
+            texture: 't2'
+        };
+        data = this.validate(deflt, data);
         var tween1 = game.add.tween(obj['scale']).to({
             y: 0
         }, data['duration'] * 0.5, Phaser.Easing.Bounce.In, false);
@@ -656,6 +776,25 @@ var Animations = (function () {
         else {
             return false;
         }
+    };
+    Animations.prototype.validate = function (obj1, obj2) {
+        var valid = {};
+        if (obj2 === undefined || obj2 === null || obj2 === false) {
+            valid = obj1;
+        }
+        else {
+            for (var property in obj1) {
+                if (obj1.hasOwnProperty(property)) {
+                    if (!obj2[property]) {
+                        valid[property] = obj1[property];
+                    }
+                    else {
+                        valid[property] = obj2[property];
+                    }
+                }
+            }
+        }
+        return valid;
     };
     return Animations;
 }());
