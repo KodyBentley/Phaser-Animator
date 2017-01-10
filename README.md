@@ -4,32 +4,48 @@
 Phaser-Animator is a free open source UI plugin to make creating simple and efficient animations quickly using Phaser.io.
 
 # Getting Started
+DISCLAIMER:
+Phaser Animator is written in TypeScript and then compiled down to ES5. To use with ES5 project a module loader will be required.
 
 To start using Phaser-Animator in your project:
 - Download the project from this repo
-- Include index.js found in:
+- Include Animation.js found in:
 ```
 Phaser-Animator
 ├── bin
-│   └── index.js
+│   └── Animation.js
 ```
-- Add index.js to your current Phaser project in the index.html:
+- Include Animation.js in your project where you typically save 3rd party extensions
+- Using TypeScript or ES6 simply include it in your boot state of game by:
+```html
+import Animation from './../objects/Animation'
+```
 
+- Then inside your boot states create function include
+```html
+this.game.animation = new Animation();
+```
 
-`Phaser-Animator` is a simple and efficient to use UI plugin to be used with Phaser.io 
+- Now the Animation UI plugin is available to be used throughout your entire game project. Here is some small demo code for a button to be rotated in a menu state using ES6
 
-## Installation
+```html
+create() {
+    let buttonPlay = new MenuButton(this.game, this.game.width * 0.5, 650, 'playButton', 'Game');
+	    buttonPlay.events.onInputDown.add(this.click, this);
+}
 
+click(buttonPlay) {
+		this.tweening = true;
+		this.game.animation.rotateFromCenter.rotateIn(this.game, buttonPlay, false, () => {
+			this.tweening = false;
+		})
+	}
+```
 
+## Basic Usage
 
-##Basic Usage
-1. Include the JS script above the end of  your document's `<html>`
-
-  ```html
-<script src="scripts/phaser.min.js"></script>
-<script src="scripts/index.js"></script>
-  ```
-2. Here is a list of premade animation functions with default parameters to be used right out of the box:
+  
+Here is a list of premade animation functions with default parameters to be used right out of the box:
 
   * `shakeY`
   * `shakeY`
