@@ -5,9 +5,9 @@ Phaser-Animator is a free open source UI plugin to make creating simple and effi
 
 # Getting Started
 DISCLAIMER:
-Phaser Animator is written in TypeScript and then compiled down to ES5. To use with ES5 project a module loader will be required.
+Phaser-Animator is written in TypeScript and then compiled down to ES5. To use with ES5 project a module loader will be required.
 
-To start using Phaser-Animator in your project:
+To start using Phaser-Animator in your project with TypeScript or ES6:
 - Download the project from this repo
 - Include Animation.js found in:
 ```
