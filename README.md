@@ -18,7 +18,7 @@ Phaser-Animator
 - Include Animation.js in your project where you typically save 3rd party extensions
 - Using TypeScript or ES6 simply include it in your boot state of game by:
 ```html
-import Animation from './../objects/Animation'
+import Animation from 'yourDirectory/Animation'
 ```
 
 - Then inside your boot states create function include
@@ -79,6 +79,9 @@ Here is a list of premade animation functions with default parameters to be used
  
 
 Full example:
+
+Please note to change the default parameters for the tween set false when calling the animation to 
+an objet such as {duration: val, distance: val}
 
 ```html
 this.animationRunning = true;
